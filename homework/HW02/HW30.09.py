@@ -44,7 +44,7 @@ else:
         if words[-2][-1] in ("!?:;.,)("):
             znak2 = words[-2][-1] 
         
-    words[-1], words[-2] = words[-2].strip("!?:;.,)(")+znak1, words[-1].strip("!?:;.,)(")+znak2
+        words[-1], words[-2] = words[-2].strip("!?:;.,)(")+znak1, words[-1].strip("!?:;.,)(")+znak2
         
 
     print(" ".join(words))
