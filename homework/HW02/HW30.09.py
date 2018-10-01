@@ -13,9 +13,9 @@ cifre = alpha[1::]+alpha[:1:]
 cifre_cap = alpha_cap[1::]+alpha_cap[:1:]
 
 for indx, letter in enumerate(alpha):
-    d[letter] = cifre[int(indx)]
+    d[letter] = cifre[indx]
 for indx, letter in enumerate(alpha_cap):
-    d[letter] = cifre_cap[int(indx)]
+    d[letter] = cifre_cap[indx]
 
 
 text = input("Введите предложение кириллицей: ")
