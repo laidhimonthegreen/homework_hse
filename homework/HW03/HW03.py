@@ -1,49 +1,69 @@
-#это черновая версия программы
-#надо: спросить про табуляцию, open with as
-
-
-
-
 import random
  
 #СЛОВА И СЛОВОСОЧЕТАНИЯ
-def sing_noun():
+def sing_noun(): 
     sing_nouns = []
-    f = open("sing_noun.tsv")
-    sing_nouns = [word.strip() for word in f.readlines()]
-    return random.choice(sing_nouns)
-
-def adv():
+    with open("sing_noun.tsv") as f: 
+        for lin in f.readlines(): 
+            listline = lin.split("\t") 
+            for word in listline:
+                if word.strip():
+                    sing_nouns.append(word.strip()) 
+        return random.choice(sing_nouns)
+ 
+def adv(): 
     adverbs = []
-    f = open("adv.tsv")
-    adverbs = [word.strip() for word in f.readlines()]
+    with open("adv.tsv") as f: 
+        for lin in f.readlines(): 
+            listline = lin.split("\t")
+            for word in listline:
+                if word.strip():
+                    adverbs.append(word.strip()) 
     return random.choice(adverbs)
 
-def intens(adv):
+
+def intens(adv): 
     intensifiers = []
-    f = open("intensifier.tsv")
-    intensifiers = [word.strip() for word in f.readlines()]
-    result = random.choice(intensifiers) + " " + adv()
+    with open("intensifier.tsv") as f: 
+        for lin in f.readlines(): 
+            listline = lin.split("\t")
+            for word in listline:
+                if word.strip():
+                    intensifiers.append(word.strip()) 
+        result = random.choice(intensifiers) + " " + adv()
     return result
-
-def plural_noun():
+ 
+     
+def plural_noun(): 
     plural_nouns = []
-    f = open("plural_nouns.tsv")
-    plural_nouns = [word.strip() for word in f.readlines()]
+    with open("plural_nouns.tsv") as f: 
+        for lin in f.readlines(): 
+            listline = lin.split("\t") 
+            for word in listline:
+                if word.strip():
+                    plural_nouns.append(word.strip()) 
     return random.choice(plural_nouns)
-
-def adj(plural_nouns):
+    
+def adj(plural_nouns): 
     adjectives = []
-    f = open("adj.tsv")
-    adjectives = [word.strip() for word in f.readlines()]
+    with open("adj.tsv") as f: 
+        for lin in f.readlines(): 
+            listline = lin.split("\t") 
+            for word in listline:
+                if word.strip():
+                    adjectives.append(word.strip()) 
     return random.choice(adjectives) + " " + plural_noun()
 
-def verb():
+def verb(): 
     verbs = []
-    f = open("verb.tsv")
-    verbs = [word.strip() for word in f.readlines()]
+    with open("verb.tsv") as f: 
+        for lin in f.readlines(): 
+            listline = lin.split("\t") 
+            for word in listline:
+                if word.strip():
+                    verbs.append(word.strip()) 
     return random.choice(verbs)
-  
+     
 def verbgroup():
     return adj(plural_noun()) + " " + verb() + " " + plural_noun()
  
@@ -93,5 +113,5 @@ def main():
 
  
 if __name__ == '__main__':
-    main()
+    main() 
  
