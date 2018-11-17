@@ -26,13 +26,16 @@ def extension_and_name():
 
 #функция, которая определяет самый частый элемент списка
 def most_common(lst):
-    max = lst[0]
-    max_count = lst.count(max)
-    for el in lst:
-        if lst.count(el) > max_count:
-            max = el
-            max_count = lst.count(el)
-    return max
+    if lst[0]:
+        max = lst[0]
+        max_count = lst.count(max)
+        for el in lst:
+            if lst.count(el) > max_count:
+                max = el
+                max_count = lst.count(el)
+        return max
+    else:
+        return "most_common does not work; list was empty"
 
 
 #функция, которая удаляет из списка повторяющиеся элементы
@@ -41,7 +44,6 @@ def uniq_list(lst):
     for i in lst:
         if i not in uniq_lst:
             uniq_lst.append(i)
-
     return uniq_lst
 
 
@@ -50,20 +52,20 @@ def deep_folder():
     return (max([len(i[0].split("/")) for i in os.walk(".")])-1)
 
 #2 количество папок с кириллическими названиями
-def is_cyrillic():
-    folders = folder_names()
-    #шаблон для поиска кириллических слов (пробелы не включены)
-    r = re.compile("^[а-яА-ЯёЁ]+$")
+def cyrillic():
+    #шаблон для поиска кириллических строк (пробелы не включены)
+    cyr = re.compile("^[а-яА-ЯёЁ]+$")
     #список с кириллическими названиями
-    russian = [w for w in filter(r.match, folders)]
-    return len(russian)
+    cyr_folders = [w for w in filter(cyr.match, folder_names())]
+    return len(cyr_folders)
+
 
 #3 самое частое расширение для всех файлов
 def file_extensions():
     return (most_common(extension_and_name()[0]))
 
 
-#4 самая частая первая буква
+#4 самая частая первая буква (или другой знак)
 def first_letter():
     letters = []
     for folder in folder_names():
@@ -79,35 +81,31 @@ def different_names():
 
 #6 количество папок, в которых есть файлы с повторяющимися расширениями
 def repeat_extensions():
-    a = os.walk(".")
     n = 0
-    for i in a:
+    for i in os.walk("."):
         extensions = []
-        for b in i[2]:
-            extensions.append(os.path.splitext(b)[1])
+        for fle in i[2]:
+            extensions.append(os.path.splitext(fle)[1])
         uniq_extensions = uniq_list(extensions)
         if len(uniq_extensions) < len(extensions):
             n += 1
     return n
 
 #7 папка с наибольшим количеством файлов внутри
+# (возвращает путь к папке, чтобы избежать неоднозначности при совпадении названий папок)
 def file_counter():
     d = {}
     #ключ -- количество файлов в папке, значение -- название папки
     #если несколько папок содержат одинаковое количество файлов, то выводится только одна
     for i in os.walk("."):
         d[len(i[2])] = i[0]
-    max_folder = d.get(max(d.keys())).split("/")[-1]
-    #исключение для папки с программой
-    if max_folder == ".":
-        return os.getcwd().split("/")[-1]
-    else:
-        return max_folder
+    max_folder = d.get(max(d.keys()))
+    return max_folder
 
 
 def write_results():
     q1 = "Максимальная глубина папки: "+str(deep_folder())
-    q2 = "Количество кириллических папок: "+str(is_cyrillic())
+    q2 = "Количество кириллических папок: "+str(cyrillic())
     q3 = "Самое частое расширение для всех файлов: "+file_extensions()
     q4 = "Самая популярная первая буква в названиях папок: "+first_letter()
     q5 = "Общее количество уникальных названий файлов: "+str(different_names())
