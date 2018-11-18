@@ -26,7 +26,7 @@ def extension_and_name():
 
 #функция, которая определяет самый частый элемент списка
 def most_common(lst):
-    if lst[0]:
+    if lst:
         max = lst[0]
         max_count = lst.count(max)
         for el in lst:
