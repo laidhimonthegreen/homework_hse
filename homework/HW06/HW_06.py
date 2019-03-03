@@ -107,9 +107,8 @@ def getting_links_for_parse():
 #Готовим таблицу с информацией
 
 #создаем пустой список со списками, которые будут потом заполненными строками таблицы
-def empty_lists(link_list):
-    path, date, author, title, text, wordcount = "path", "date", "author", "title", "text", "wordcount"
-    metalinks = [[path, date, author, title, text, wordcount, link] for link in link_list]
+def empty_lists(link_list): 
+    metalinks = [["path", "date", "author", "title", "text", "wordcount"] for link in link_list]
     return metalinks
 
 #главная функция, которая собирает данные для таблицы
