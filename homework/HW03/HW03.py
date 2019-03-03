@@ -108,10 +108,8 @@ def write_sentences():
 
 
 def main():
-    write_sentences()
-    return 0
+    return write_sentences()
 
- 
 if __name__ == '__main__':
     main() 
  
